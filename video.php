@@ -6,7 +6,6 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 require_once('vendor/autoload.php');
-require_once('common/function/getFileName.php');
 
 $row = 1;
 if (($handle = fopen("./files/videos/videos.csv", "r")) !== FALSE) {
