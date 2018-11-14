@@ -64,7 +64,7 @@ if (($handle = fopen("./files/videos/videos.csv", "r")) !== FALSE) {
             $vid_url = trim($data[5]);
             $driver->get($vid_url);
 
-            // esperar até 30 segundos o vídeo carregar
+            // esperando até 30 segundos as infos do video carregarem
             $driver->wait(30)->until(
                 WebDriverExpectedCondition::presenceOfAllElementsLocatedBy(
                     WebDriverBy::id('upload-info')
@@ -81,7 +81,7 @@ if (($handle = fopen("./files/videos/videos.csv", "r")) !== FALSE) {
 
             sleep(30);
 
-            // pegando o código fonte da página porque terei que utilizar expressão regular, pois não consegui utilizar o xpath
+            // não consegui pegar as infos com xpath, então estou pegando o código fonte da página para utilizar expressões regulares
             $content = $driver->getPageSource();
 
             // pegando os likes
@@ -106,7 +106,7 @@ if (($handle = fopen("./files/videos/videos.csv", "r")) !== FALSE) {
             if (preg_match($pattern[3], $content, $desc_ini, PREG_OFFSET_CAPTURE) && preg_match($pattern[4], $content, $desc_fim, PREG_OFFSET_CAPTURE)) {
                 $max_char = (integer)$desc_fim[0][1]-(integer)$desc_ini[0][1];
                 $description = trim(strip_tags(substr($content, $desc_ini[0][1], $max_char)));
-                $description2 =  preg_replace("/\r\n|\r|\n/",'||', "\"".str_replace("\"", "'", $description)."\""); // tratando a descrição
+                $description2 =  preg_replace("/\r\n|\r|\n/",'||', "\"".str_replace("\"", "'", $description)."\""); // limpando a descrição
             }
 
             sleep(10);
