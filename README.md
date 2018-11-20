@@ -11,9 +11,9 @@ O código utiliza a biblioteca php-webdriver. Para saber mais:
 
 ## Rodando
 
-1) Vá até a página do canal que deseja coletar os dados dos vídeos, clique em "Vídeos" e deslize a página até ao final. Depois que todos os vídeos tiverem aparecido na tela, clique em "Salvar como" e salve em: 'files/channels';
+1) Vá até a página do canal que deseja coletar os dados dos vídeos, clique em "Vídeos" e deslize a página até ao final. Depois que todos os vídeos tiverem aparecido na tela, clique em "Salvar como" e salve em: 'files/channels'
 
-1.1) Faça isso para quantos canais quiser coletar os dados;
+1.1) Faça isso para quantos canais quiser coletar os dados
 
 2) Vá até o terminal e rode:
 
@@ -21,7 +21,7 @@ O código utiliza a biblioteca php-webdriver. Para saber mais:
     php channel.php
 ```
 
-2.1) Assim que terminar de puxar os vídeos dos canais, ele criará uma saída com todos os links de vídeos extraídos: 'files/videos/videos.csv';
+2.1) Assim que terminar de puxar os vídeos dos canais, ele criará uma saída com todos os links de vídeos extraídos: 'files/videos/videos.csv'
 
 3) Se a saída tiver sido criada corretamente é só rodar:
 
@@ -29,8 +29,8 @@ O código utiliza a biblioteca php-webdriver. Para saber mais:
     php video.php
 ```
 
-4) Aguarde porque o processo irá demorar um bocado;
+4) Aguarde porque o processo irá demorar um bocado
 
-4.1) Uma saída será criada em: 'files/output';
+4.1) Uma saída será criada em: 'files/output'
 
 5) Fim.
