@@ -15,7 +15,7 @@ if (($handle = fopen("./files/videos/videos.csv", "r")) !== FALSE) {
     if ($handle2) {
         
         // Escrevendo o cabecalho do arquivo
-        $cabecalho = "channel; ch_video_title; ch_video_duration; ch_video_views; URL; yt_id; title; likes; dislikes; published; description; dwn_dt\n";
+        $cabecalho = "channel; ch_video_title; ch_video_duration; ch_video_views; URL; yt_id; title; likes; dislikes; published; views; description; dwn_dt\n";
         fwrite($handle2, $cabecalho);
 
         // iniciando o google chrome
@@ -35,6 +35,9 @@ if (($handle = fopen("./files/videos/videos.csv", "r")) !== FALSE) {
         $pattern[3] = "/<div id=\"description\" slot=\"content\" class=\"style-scope ytd-video-secondary-info-renderer\">/";
         $pattern[4] = "/<div id=\"collapsible\" class=\"style-scope ytd-metadata-row-container-renderer\" hidden=\"\"><\/div>/";
 
+        // visualizações
+        $pattern[5] = "/<span class=\"view-count style-scope yt-view-count-renderer\">(.*) (visualizações|views)<\/span><span class=\"short-view-count style-scope yt-view-count-renderer\">/";
+
         /* fim expressões regulares */
         while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
             $content = "";
@@ -48,6 +51,9 @@ if (($handle = fopen("./files/videos/videos.csv", "r")) !== FALSE) {
             $arr_dislk = array();
             $dislikes = "";
             
+            $arr_views = array();
+            $views = "";
+
             $dt = array();
             $dt_pub = "";
 
@@ -96,12 +102,17 @@ if (($handle = fopen("./files/videos/videos.csv", "r")) !== FALSE) {
                 echo "Dislikes: ".$dislikes."\n";
             }
 
+            // pegando as visualizações
+            if (preg_match($pattern[5], $content, $arr_views)) {
+                $views = $arr_views[1];
+                echo "Views: ".$views."\n";
+            }
+
             // pegando a data de publicação
             if (preg_match($pattern[2], $content, $dt)) {
                 $dt_pub = date('Y-m-d', strtotime($dt[2]." ".$dt[1]." ".$dt[3]));
                 echo "Publicacao: ".$dt_pub."\n ======================== \n\n";
             }
-
 
             if (preg_match($pattern[3], $content, $desc_ini, PREG_OFFSET_CAPTURE) && preg_match($pattern[4], $content, $desc_fim, PREG_OFFSET_CAPTURE)) {
                 $max_char = (integer)$desc_fim[0][1]-(integer)$desc_ini[0][1];
@@ -112,7 +123,7 @@ if (($handle = fopen("./files/videos/videos.csv", "r")) !== FALSE) {
             sleep(10);
 
             // escrevendo a saída
-            $line = $data[0].";".$data[2].";".$data[3].";".$data[4].";".$data[5].";".$data[1].";".$vid_title."; ".$likes."; ".$dislikes."; ".$dt_pub."; ".$description2."; ".date("Y/m/d h:i:s")."\r\n";
+            $line = $data[0].";".$data[2].";".$data[3].";".$data[4].";".$data[5].";".$data[1].";".$vid_title."; ".$likes."; ".$dislikes."; ".$dt_pub."; ".$views."; ".$description2."; ".date("Y/m/d h:i:s")."\r\n";
             fwrite($handle2, $line);
 
             ++$row;
