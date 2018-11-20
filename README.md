@@ -1,7 +1,7 @@
 # yt-parser - feito para [GEMAA](http://gemaa.iesp.uerj.br/).
 
 ## Descrição
-Script para baixar dados de vídeos do vídeo YT, como: data de publicação, likes, dislikes, visualizaçãoes, título e descrição.
+Script para baixar dados de vídeos do YT, tais como: data de publicação, duração, likes, dislikes, visualizaçãoes, título e descrição.
 
 O código utiliza a biblioteca php-webdriver. Para saber mais: 
 
@@ -16,7 +16,9 @@ O código utiliza a biblioteca php-webdriver. Para saber mais:
 
 2) Vá até o terminal e rode:
 
+```
     php channel.php
+```
 
 2.1) Assim que terminar de puxar os vídeos dos canais, ele criará uma saída com todos os links de vídeos extraídos: 'files/videos/videos.csv';
 
